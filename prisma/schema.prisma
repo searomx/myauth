@@ -1,0 +1,99 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+model User{
+  id Int @id @default(autoincrement())
+  code String @unique
+  name String
+  email String @unique
+  sobrenome String
+  isAdmin Boolean
+  userActive Boolean
+  role Role? @relation(fields: [roleId], references: [id])
+  roleId Int?
+  products UserProducts[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Role{
+  id Int @id @default(autoincrement())
+  roleName String
+  users User[] @relation
+}
+
+model Product{
+  id Int @id @default(autoincrement())
+  productName String
+  productDescription String
+  productImage String
+  barCode String
+  productActive Boolean
+  users UserProducts[]
+  materials ProductMaterial[]
+  steps Steps[] @relation("ProductSteps")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model UserProducts{
+  id Int @id @default(autoincrement())
+  userId Int
+  productId Int
+  isDone Boolean
+  dateStart DateTime
+  dateDone DateTime
+  user User @relation(fields: [userId], references: [id])
+  product Product @relation(fields: [productId], references: [id]) 
+}
+
+model ProductMaterial{
+  id Int @id @default(autoincrement())
+  productId Int
+  materialId Int
+  quantityMaterialRequired Int
+  product Product @relation(fields: [productId], references: [id])
+  material Materials @relation(fields: [materialId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Materials{
+  id Int @id @default(autoincrement())
+  materialBox String
+  materialCode String
+  nameMaterial String
+  descriptionMaterial String
+  materialImage String
+  quantityMaterialRequired Int
+  materialActive Boolean
+  products ProductMaterial[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Steps{
+  id Int @id @default(autoincrement())
+  stepName String
+  stepDescription String
+  stepImage String
+  stepDuration Int
+  productId Int
+  product Product @relation("ProductSteps",fields: [productId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+// return go(f, seed, [])
+
