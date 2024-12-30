@@ -1,0 +1,56 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.signupContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 95vh;
+}
+.h1{
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+
+}
+.divForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    row-gap: 0.4rem;
+}
+.inputGroup{
+    height: 30px;
+    border-radius: 0.5rem;
+}
+.buttonSubmit{
+    background-color: #ff5722;
+    color: white;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    margin-top: 0.6rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.buttonSubmit:hover{
+    background-color: #f71505;
+}
+
+@media(max-width: 1024px) and (min-width: 476px){
+    .inputGroup{
+        width: 40vw;
+    }
+}
+@media(min-width: 1025px){
+    .inputGroup{
+        width: 20vw;
+    }
+}

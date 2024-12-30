@@ -18,7 +18,6 @@ model User{
   code String @unique
   name String
   email String @unique
-  sobrenome String
   isAdmin Boolean
   userActive Boolean
   role Role? @relation(fields: [roleId], references: [id])

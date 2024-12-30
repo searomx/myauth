@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 
-export default async function SignupAction(
+export default async function loginAction(
   currentState: any,
   data: FormData
 ): Promise<String> {
